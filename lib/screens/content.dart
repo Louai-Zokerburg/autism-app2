@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:autism_app/components/my_btn.dart';
+import 'package:audioplayers/audioplayers.dart';
 
-class ContentPage extends StatelessWidget {
+class ContentPage extends StatefulWidget {
   final bool isBoy;
   final dynamic content;
   final String basePath;
@@ -9,8 +10,27 @@ class ContentPage extends StatelessWidget {
   const ContentPage(
       {super.key, required this.content, required this.isBoy, required this.basePath});
 
+  @override
+  State<ContentPage> createState() => _ContentPage();
+}
+
+class _ContentPage extends State<ContentPage> {
+  AudioPlayer? _player;
+
+  @override
+  void dispose() {
+    _player?.dispose();
+    super.dispose();
+  }
+
+  void _playVoiceAndNavigate(String audioPath)  async {
+    _player?.dispose();
+    _player = AudioPlayer();
+    _player?.play(AssetSource('audios/$audioPath'));
+  }
+
   Color getBtnColor() {
-    return isBoy ? const Color(0xFFA2C6E5) : const Color(0xFFCEA7CC);
+    return widget.isBoy ? const Color(0xFFA2C6E5) : const Color(0xFFCEA7CC);
   }
 
   
@@ -19,7 +39,7 @@ class ContentPage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double btnSize = screenWidth * 0.3;
 
-    var contentT = content['label'];
+    var contentT = widget.content['label'];
 
     var i = 1;
 
@@ -28,9 +48,9 @@ class ContentPage extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(children: <Widget>[
-            ...content['items'].map((item) {
-
-              String imagePath = "$basePath/$contentT/$i.png";
+            ...widget.content['items'].map((item) {
+              String shit = widget.basePath;
+              String imagePath = "$shit/$contentT/$i.png";
               i++;
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -40,7 +60,7 @@ class ContentPage extends StatelessWidget {
                     imagePath: imagePath,
                     buttonText: item,
                     onPressed: () {
-                      print("object");
+                      _playVoiceAndNavigate('1.wav');
                     },
                     backgroundColor: getBtnColor(),
                   ),
