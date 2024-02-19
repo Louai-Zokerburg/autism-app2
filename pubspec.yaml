@@ -99,6 +99,8 @@ flutter:
 
     - assets/audios/
 
+    # - assets/audios/feel/مليح/
+    # - assets/audios/feel/ماشي مليح/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

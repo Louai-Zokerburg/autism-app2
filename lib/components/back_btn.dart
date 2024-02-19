@@ -6,8 +6,12 @@ class MyBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return TextButton.icon(
       icon: const Icon(Icons.arrow_back),
+      label: const Text(
+        'رجوع',
+        style: TextStyle(fontSize: 20),
+      ),
       onPressed: () {
         Navigator.pop(context);
       },

@@ -3,12 +3,14 @@ import 'package:autism_app/components/my_btn.dart';
 import 'package:autism_app/data/data.dart';
 import 'package:autism_app/screens/content.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:autism_app/components/back_btn.dart';
 
 class CategoryPage extends StatefulWidget {
   final bool isBoy;
   final String categoryName;
 
-  const CategoryPage({super.key, required this.categoryName, required this.isBoy});
+  const CategoryPage(
+      {super.key, required this.categoryName, required this.isBoy});
 
   @override
   State<CategoryPage> createState() => _CategoryPage();
@@ -23,22 +25,24 @@ class _CategoryPage extends State<CategoryPage> {
     super.dispose();
   }
 
-  void _playVoiceAndNavigate(BuildContext context, String audioPath, bool isBoy, String basePath, dynamic item )  async {
+  void _playVoiceAndNavigate(BuildContext context, String audioPath, bool isBoy,
+      String basePath, dynamic item) async {
     _player?.dispose();
     _player = AudioPlayer();
-    _player?.play(AssetSource('audios/$audioPath'));
+    _player?.play(AssetSource(audioPath));
 
     Future.delayed(const Duration(seconds: 2), () {
       String shit = widget.categoryName;
-        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ContentPage(
-                                  content: item,
-                                  isBoy: widget.isBoy,
-                                  basePath: 'assets/images/$shit',
-                                )),
-                      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ContentPage(
+                  content: item,
+                  isBoy: widget.isBoy,
+                  basePath: 'assets/images/$shit',
+                  audioBasePath: 'audios/$shit'
+                )),
+      );
     });
   }
 
@@ -53,32 +57,44 @@ class _CategoryPage extends State<CategoryPage> {
     double btnSize = screenWidth * 0.3;
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(children: <Widget>[
-            ...category['items'].map((item) {
-              String label = item['label'];
-              String shit2 = widget.categoryName;
-              String imagePath = "assets/images/$shit2/$label.png";
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: btnSize,
-                  child: MyBtn(
-                    imagePath: imagePath,
-                    buttonText: label,
-                    onPressed: () {
-                      var shit = widget.categoryName;
-                      _playVoiceAndNavigate(context, '1.wav', widget.isBoy, 'assets/images/$shit', item);
-                    },
-                    backgroundColor: getBtnColor(), // Adjust as needed
-                  ),
-                ),
-              );
-            })
-          ]),
-        ),
+      body: Stack(
+        children: [
+          Center(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: <Widget>[
+                ...category['items'].map((item) {
+                  String label = item['label'];
+                  String shit2 = widget.categoryName;
+                  String imagePath = "assets/images/$shit2/$label.png";
+                  String audioPath = "audios/$shit2/$label.mp3";
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: btnSize,
+                      child: MyBtn(
+                        imagePath: imagePath,
+                        buttonText: label,
+                        onPressed: () {
+                          var shit = widget.categoryName;
+                          _playVoiceAndNavigate(context, audioPath, widget.isBoy,
+                              'assets/images/$shit', item);
+                        },
+                        backgroundColor: getBtnColor(), // Adjust as needed
+                      ),
+                    ),
+                  );
+                })
+              ]),
+            ),
+          ),
+          Positioned(
+              top: 16,
+              left: 0,
+              child: MyBackButton(
+                context: context,
+              )),
+        ],
       ),
     );
   }
