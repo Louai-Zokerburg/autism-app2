@@ -78,7 +78,7 @@ class _Home extends State<Home> {
                     buttonText: 'حاب',
                     onPressed: () {
                       _playVoiceAndNavigate(
-                          context, '1.wav', widget.isBoy, 'want');
+                          context, 'home/want.wav', widget.isBoy, 'want');
                     },
                     backgroundColor: getBtnColor(),
                   ),
@@ -91,7 +91,7 @@ class _Home extends State<Home> {
                     buttonText: 'نتعلم',
                     onPressed: () {
                       _playVoiceAndNavigate(
-                          context, '1.wav', widget.isBoy, 'learn');
+                          context, 'home/learn.wav', widget.isBoy, 'learn');
                     },
                     backgroundColor: getBtnColor(),
                   ),
@@ -104,7 +104,7 @@ class _Home extends State<Home> {
                     buttonText: 'نحس',
                     onPressed: () {
                       _playVoiceAndNavigate(
-                          context, '1.wav', widget.isBoy, 'feel');
+                          context, 'home/feel.wav', widget.isBoy, 'feel');
                     },
                     backgroundColor: getBtnColor(),
                   ),

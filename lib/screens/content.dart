@@ -59,8 +59,7 @@ class _ContentPage extends State<ContentPage> {
                   String shit = widget.basePath;
                   String shit2 = widget.audioBasePath;
                   String imagePath = "$shit/$contentT/$i.png";
-                  String audioPath = "$shit2/$contentT/$i.mp3";
-                  print(audioPath);
+                  String audioPath = "$shit2/$contentT/$i.wav";
                   i++;
                   return Padding(
                     padding: const EdgeInsets.all(8.0),

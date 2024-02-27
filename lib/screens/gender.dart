@@ -4,7 +4,6 @@ import 'package:autism_app/screens/home.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:autism_app/components/back_btn.dart';
 
-
 class GenderPage extends StatefulWidget {
   const GenderPage({super.key});
   @override
@@ -52,7 +51,7 @@ class _GenderPage extends State<GenderPage> {
                       imagePath: 'assets/images/home/boy.png',
                       buttonText: 'طفل',
                       onPressed: () {
-                        _playVoiceAndNavigate(context, '1.wav', true);
+                        _playVoiceAndNavigate(context, 'home/boy.wav', true);
                       },
                       backgroundColor: const Color(0xFFA2C6E5),
                     ),
@@ -61,7 +60,7 @@ class _GenderPage extends State<GenderPage> {
                       imagePath: 'assets/images/home/girl.png',
                       buttonText: 'طفلة',
                       onPressed: () {
-                        _playVoiceAndNavigate(context, '1.wav', false);
+                        _playVoiceAndNavigate(context, 'home/girl.wav', false);
                       },
                       backgroundColor: const Color(0xFFCEA7CC),
                     ),
@@ -70,7 +69,12 @@ class _GenderPage extends State<GenderPage> {
               ],
             ),
           ),
-          Positioned(top: 16, left: 0, child: MyBackButton(context: context,)),
+          Positioned(
+              top: 16,
+              left: 0,
+              child: MyBackButton(
+                context: context,
+              )),
         ],
       ),
     );

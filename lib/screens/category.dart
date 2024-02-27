@@ -29,7 +29,7 @@ class _CategoryPage extends State<CategoryPage> {
       String basePath, dynamic item) async {
     _player?.dispose();
     _player = AudioPlayer();
-    _player?.play(AssetSource(audioPath));
+    _player?.play(AssetSource('audios/$audioPath'));
 
     Future.delayed(const Duration(seconds: 2), () {
       String shit = widget.categoryName;
@@ -37,11 +37,10 @@ class _CategoryPage extends State<CategoryPage> {
         context,
         MaterialPageRoute(
             builder: (context) => ContentPage(
-                  content: item,
-                  isBoy: widget.isBoy,
-                  basePath: 'assets/images/$shit',
-                  audioBasePath: 'audios/$shit'
-                )),
+                content: item,
+                isBoy: widget.isBoy,
+                basePath: 'assets/images/$shit',
+                audioBasePath: 'audios/$shit')),
       );
     });
   }
@@ -67,7 +66,8 @@ class _CategoryPage extends State<CategoryPage> {
                   String label = item['label'];
                   String shit2 = widget.categoryName;
                   String imagePath = "assets/images/$shit2/$label.png";
-                  String audioPath = "audios/$shit2/$label.mp3";
+                  String audioPath = "$shit2/$label.wav";
+                  print(audioPath);
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
@@ -77,8 +77,8 @@ class _CategoryPage extends State<CategoryPage> {
                         buttonText: label,
                         onPressed: () {
                           var shit = widget.categoryName;
-                          _playVoiceAndNavigate(context, audioPath, widget.isBoy,
-                              'assets/images/$shit', item);
+                          _playVoiceAndNavigate(context, audioPath,
+                              widget.isBoy, 'assets/images/$shit', item);
                         },
                         backgroundColor: getBtnColor(), // Adjust as needed
                       ),
